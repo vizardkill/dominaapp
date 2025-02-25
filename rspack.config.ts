@@ -6,7 +6,6 @@ import { ModuleFederationPlugin } from "@module-federation/enhanced/rspack";
 import { withZephyr } from "zephyr-rspack-plugin";
 
 import { mfConfig } from "./module-federation.config";
-
 const isDev = process.env.NODE_ENV === "development";
 
 // Target browsers, see: https://github.com/browserslist/browserslist
@@ -21,9 +20,11 @@ export default withZephyr()({
     extensions: ["...", ".ts", ".tsx", ".jsx"],
   },
 
+
   devServer: {
     port: 4001,
     historyApiFallback: true,
+    allowedHosts: 'all',
     watchFiles: [path.resolve(__dirname, "src")],
   },
   output: {
@@ -39,6 +40,14 @@ export default withZephyr()({
 
   module: {
     rules: [
+      {
+        test: /\.css$/,
+        type: "javascript/auto",
+        use: [
+          rspack.CssExtractRspackPlugin.loader, 
+          'postcss-loader'
+        ],
+      },
       {
         test: /\.svg$/,
         type: "asset",
@@ -80,6 +89,7 @@ export default withZephyr()({
     }),
     new ModuleFederationPlugin(mfConfig),
     isDev ? new RefreshPlugin() : null,
+    new rspack.CssExtractRspackPlugin({})
   ].filter(Boolean),
   optimization: {
     minimizer: [

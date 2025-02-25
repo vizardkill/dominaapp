@@ -1,11 +1,17 @@
 import ReactDOM from "react-dom/client";
 
 import "./index.css";
+import Header from "./components/Header";
+import Home from "./components/Home";
+import Footer from "./components/Footer";
 
 const App = () => (
-  <div className="mt-10 text-3xl mx-auto max-w-6xl">
-    <div>Name: dominatecnica</div>
-    <div>Framework: react-19</div>
+  <div className=" bg-amber-50">
+    <Header />
+    <main className="p-4 m-10">
+      <Home />
+    </main>
+    <Footer />
   </div>
 );
 

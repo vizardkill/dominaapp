@@ -1,5 +1,15 @@
-export const mfConfig = {
+import { moduleFederationPlugin } from '@module-federation/sdk';
+
+export const mfConfig: moduleFederationPlugin.ModuleFederationPluginOptions = {
   name: "dominatecnica",
   exposes: {},
-  shared: ["react", "react-dom"],
+  remotes: {
+    'components': 'dominausers@http://localhost:4002/remoteEntry.js',
+  },
+  shared: [
+    "react",
+    "react-dom",
+    "tailwindcss",
+    "postcss-loader",
+  ],
 };
